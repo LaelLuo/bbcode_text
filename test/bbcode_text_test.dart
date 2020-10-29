@@ -12,7 +12,7 @@ void main() {
       'img',
       4,
       TextStyle(),
-      spanBuilder: (Map<String, String> args, String tagSource, String content, String source, int start, TextStyle textStyle) {
+      spanBuilder: (String tagSource, String content, String source, int start, TextStyle textStyle) {
         return SpecialTextSpan(
           text: content,
           actualText: source,
@@ -44,7 +44,7 @@ class BBCodeTextSpanBuilder extends SpecialTextSpanBuilder {
       'img',
       BBCodeTextSpanBuilderData(
         styleBuilder: (old) => old?.copyWith(),
-        spanBuilder: (Map<String, String> args, String tagSource, String content, String source, int start, TextStyle textStyle) {
+        spanBuilder: (String tagSource, String content, String source, int start, TextStyle textStyle) {
           return SpecialTextSpan(
             text: content,
             actualText: source,

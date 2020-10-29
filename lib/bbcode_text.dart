@@ -1,7 +1,6 @@
 library bbcode_text;
 
 import 'package:bbcode_text/multiple_characters_end_flat_text.dart';
-import 'package:bbob_dart/bbob_dart.dart' as bb;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +8,6 @@ class BBCodeText extends MultipleCharactersEndFlatText {
   final int index;
   final TextStyle Function(TextStyle textStyle) styleBuilder;
   final InlineSpan Function(
-    Map<String, String> args,
     String tagSource,
     String content,
     String source,
@@ -29,10 +27,8 @@ class BBCodeText extends MultipleCharactersEndFlatText {
   InlineSpan finishText() {
     final style = styleBuilder?.call(this.textStyle) ?? textStyle;
     if (spanBuilder == null) return TextSpan(text: source, style: style);
-    final _element = element;
     return spanBuilder(
-      _element.attributes,
-      _element.tag,
+      RegExp('\\[(.*)\\]').firstMatch(source)[1],
       content,
       source,
       index - startFlag.length + 1,
@@ -40,16 +36,10 @@ class BBCodeText extends MultipleCharactersEndFlatText {
     );
   }
 
-  bb.Element get element => bb.parse(source).first;
 
   @override
   String get content {
-    final _element = element;
-    if (_element.textContent.isNotEmpty) return _element.textContent;
-    return contentWithEndFlag.substring(
-      _element.tag.length + 2 - startFlag.length,
-      contentWithEndFlag.length - endFlag.length,
-    );
+    return RegExp('\\](.*)\\[').firstMatch(source)[1];
   }
 }
 
@@ -78,7 +68,6 @@ class BBCodeTextBuilder {
 class BBCodeTextSpanBuilderData {
   final TextStyle Function(TextStyle textStyle) styleBuilder;
   final InlineSpan Function(
-    Map<String, String> args,
     String tagSource,
     String content,
     String source,

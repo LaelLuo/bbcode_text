@@ -1,6 +1,6 @@
 name: bbcode_text
 description: A new Flutter package project.
-version: 0.0.2
+version: 0.0.3
 author: LaelLuo
 homepage: https://github.com/laelluo
 
@@ -12,7 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   extended_text_field: ^5.0.0
-  bbob_dart: ^0.1.1
 
 dev_dependencies:
   flutter_test:
