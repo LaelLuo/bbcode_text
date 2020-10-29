@@ -44,8 +44,10 @@ class BBCodeText extends MultipleCharactersEndFlatText {
 
   @override
   String get content {
+    final _element = element;
+    if (_element.textContent.isNotEmpty) return _element.textContent;
     return contentWithEndFlag.substring(
-      element.tag.length + 2 - startFlag.length,
+      _element.tag.length + 2 - startFlag.length,
       contentWithEndFlag.length - endFlag.length,
     );
   }
@@ -84,5 +86,5 @@ class BBCodeTextSpanBuilderData {
     TextStyle textStyle,
   ) spanBuilder;
 
-  BBCodeTextSpanBuilderData({this.styleBuilder, this.spanBuilder});
+  BBCodeTextSpanBuilderData({this.styleBuilder, @required this.spanBuilder});
 }
